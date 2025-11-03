@@ -1,0 +1,7 @@
+<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="300" fill="#333"/>
+  <rect x="50" y="50" width="80" height="200" fill="#666"/>
+  <rect x="170" y="100" width="80" height="150" fill="#666"/>
+  <rect x="50" y="50" width="200" height="30" fill="#888"/>
+  <text x="150" y="150" font-family="Montserrat, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="white">Urban Landscapes</text>
+</svg>

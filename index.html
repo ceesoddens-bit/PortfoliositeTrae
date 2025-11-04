@@ -3,110 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Showreel 2025 - Cees Oddens</title>
+    <title>Cees Oddens - Creative Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Additional styles specific to showreel page */
-        .showreel-hero {
-            position: relative;
-            height: 100vh;
-            width: 100%;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--dark-bg);
-        }
-        .showreel-video-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        .showreel-video-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .showreel-content {
-            text-align: center;
-            z-index: 2;
-            padding: 0 20px;
-            color: var(--secondary-color);
-        }
-        .showreel-content h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        .showreel-content p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-        .back-button {
-            display: inline-block;
-            padding: 12px 30px;
-            border: 2px solid var(--secondary-color);
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            margin-top: 2rem;
-        }
-        .back-button:hover {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-        }
-        .showreel-description {
-            padding: 100px 0;
-            background-color: var(--light-gray);
-            color: var(--secondary-color);
-        }
-        .showreel-description .container {
-            text-align: center;
-        }
-        .showreel-description h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-        }
-        .showreel-description p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            opacity: 0.9;
-        }
-        @media (max-width: 768px) {
-            .showreel-content h1 {
-                font-size: 2.5rem;
-            }
-            .showreel-content p {
-                font-size: 1.2rem;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="logo">
-                <a href="index.html">CO</a>
+                <a href="#hero">CO</a>
             </div>
             <div class="nav-links">
-                <a href="index.html#hero">Home</a>
-                <a href="index.html#about">About</a>
-                <a href="index.html#projects">Projects</a>
-                <a href="index.html#contact">Contact</a>
+                <a href="#hero">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
             </div>
             <div class="hamburger">
                 <span></span>
@@ -116,47 +31,143 @@
         </div>
     </nav>
 
-    <!-- Showreel Hero Section -->
-    <section class="showreel-hero">
-        <div class="showreel-video-container">
-            <iframe src="https://player.vimeo.com/video/1132816186?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1" 
-                    allow="autoplay; fullscreen; picture-in-picture" 
-                    allowfullscreen></iframe>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="video-container">
+            <div class="video-overlay"></div>
+            <div class="vimeo-wrapper">
+                <iframe src="https://player.vimeo.com/video/1132816186?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1"
+                    frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
         </div>
-        <div class="showreel-content">
-            <h1>Showreel 2025</h1>
-            <p>Ontdek mijn nieuwste werk in motion design, 3D animaties en creatieve storytelling.</p>
-            <a href="index.html#projects" class="back-button">Terug naar Portfolio</a>
+        <div class="hero-content">
+            <img src="LogoKleinTransparant.png" alt="Logo" class="hero-logo">
+            <h1>Cees Oddens</h1>
+            <h2>Creative Portfolio</h2>
+            <p class="subtitle">Crafting Stories Through Design</p>
+            <a href="#projects" class="cta-button">Explore Work</a>
+        </div>
+        <div class="profile-picture">
+            <img src="me.png" alt="Profile Picture">
+        </div>
+        <div class="scroll-down">
+            <a href="#projects"><i class="fas fa-chevron-down"></i></a>
         </div>
     </section>
 
-    <!-- Showreel Description -->
-    <section class="showreel-description">
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
         <div class="container">
-            <h2 class="section-title">Over deze Showreel</h2>
-            <p>Deze showreel bundelt de hoogtepunten van mijn creatieve projecten uit 2025. Van dynamische 2D en 3D motion graphics tot innovatieve AI-experimenten en geoptimaliseerde workflows, het toont mijn passie voor visuele verhalen die impact maken.</p>
-            <p>Geïnspireerd door minimalistisch design en functionele esthetiek, creëer ik werk dat niet alleen mooi is, maar ook betekenisvol en effectief. Laten we samenwerken om jouw verhaal tot leven te brengen!</p>
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="project1.png" alt="Project 1">
+                        <div class="project-overlay">
+                            <h3>Project 1: Showreel</h3>
+                            <p>bekijk de nieuwste shoreel uit 2025!</p>
+                            <a href="#" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="project2.png" alt="Project 2">
+                        <div class="project-overlay">
+                            <h3>Project 2: 3D motion graphics</h3>
+                            <p>Het creëren van hoogwaardige 3D-animaties.</p>
+                            <a href="#" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="project3.png" alt="Project 3">
+                        <div class="project-overlay">
+                            <h3>Project 3: 2D Motion design</h3>
+                            <p>Het creëren van hoogwaardige 2D-animaties</p>
+                            <a href="#" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="project4.png" alt="Project 4">
+                        <div class="project-overlay">
+                            <h3>Project 4: AI Generalist</h3>
+                            <p>Experimenteren met de nieuwste AI-technieken voor innovatie en design.</p>
+                            <a href="#" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="project5.png" alt="Project 5">
+                        <div class="project-overlay">
+                            <h3>Project 5: Story Boarding</h3>
+                            <p>Het uitwerken van verhaallijnen in sterke visuele storyboards</p>
+                            <a href="#" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="project6.png" alt="Project 6">
+                        <div class="project-overlay">
+                            <h3>Project 6: Workflow optimalisatie</h3>
+                            <p>Optimaliseren van workflows voor een efficiënter productieproces</p>
+                            <a href="#" class="project-link">View Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="me.png" alt="About Me">
+                </div>
+                <div class="about-text">
+                    <h2 class="section-title">About Me</h2>
+                    <p>I'm a creative professional with a passion for clean, thoughtful design that communicates and connects. With over 5 years of experience in the creative industry, I've developed a keen eye for detail and a deep understanding of visual storytelling.</p>
+                    <p>My approach combines minimalist aesthetics with functional design principles to create work that is both beautiful and effective. I believe in the power of design to transform ideas into meaningful experiences.</p>
+                    <div class="skills">
+                        <span>Photography</span>
+                        <span>UI/UX Design</span>
+                        <span>Branding</span>
+                        <span>Typography</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="contact-intro">Interested in working together? Let's connect.</p>
+            <a href="mailto:ceesoddens@hotmail.com" class="email-link">ceesoddens@hotmail.com</a>
+            <div class="social-links">
+                <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-behance"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-dribbble"></i></a>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Cees Oddens. All rights reserved.</p>
+            <p>&copy; 2023 Cees Oddens. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // Simple script to handle navbar scroll effect (assuming similar to main page)
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-    </script>
 </body>
 </html>

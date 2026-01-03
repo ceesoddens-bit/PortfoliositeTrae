@@ -38,17 +38,22 @@
 
     <main>
       <section id="hero" class="min-h-screen w-full flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
-        <div class="w-full max-w-6xl aspect-video mb-8">
+        <div class="w-full max-w-6xl aspect-video mb-8 relative rounded-lg shadow-2xl shadow-black/50">
           <iframe 
+            id="vimeo-player"
             src="https://player.vimeo.com/video/1132816186?controls=1&title=0&byline=0&portrait=0" 
-            class="w-full h-full border-none rounded-lg shadow-2xl shadow-black/50" 
+            class="w-full h-full border-none rounded-lg" 
             allow="fullscreen; picture-in-picture" 
             allowfullscreen 
             title="Cees Oddens – Showreel 2025">
           </iframe>
+          <div id="video-overlay" class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out rounded-lg">
+            <svg class="w-20 h-20 sm:w-28 sm:h-28 text-white drop-shadow-lg transform hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+            <p class="text-white text-lg sm:text-2xl font-bold mt-4 drop-shadow-lg">Bekijk in volledig scherm</p>
+          </div>
         </div>
         <p class="text-center text-base sm:text-lg md:text-xl italic text-gray-300 max-w-lg mx-auto">
-          Bekijk de nieuwste showreel uit 2025!
+          De nieuwste showreel uit 2025!
         </p>
       </section>
     </main>
@@ -67,10 +72,11 @@
       </p>
     </footer>
 
+    <script src="https://player.vimeo.com/api/player.js"></script>
     <script>
       // Navigation transparency on scroll
+      const nav = document.getElementById('navbar');
       window.addEventListener('scroll', () => {
-        const nav = document.getElementById('navbar');
         if (window.scrollY > 100) {
           nav.classList.remove('bg-transparent');
           nav.classList.add('bg-black/90');
@@ -79,6 +85,45 @@
           nav.classList.remove('bg-black/90');
         }
       });
+
+      // Fullscreen video logic
+      const overlay = document.getElementById('video-overlay');
+      const iframe = document.getElementById('vimeo-player');
+      const player = new Vimeo.Player(iframe);
+
+      overlay.addEventListener('click', () => {
+        const promise = player.play();
+        
+        // Request fullscreen after play is initiated
+        if (promise !== undefined) {
+            promise.then(() => {
+                if (iframe.requestFullscreen) {
+                    iframe.requestFullscreen();
+                } else if (iframe.webkitRequestFullscreen) { /* Safari */
+                    iframe.webkitRequestFullscreen();
+                } else if (iframe.msRequestFullscreen) { /* IE11 */
+                    iframe.msRequestFullscreen();
+                }
+            }).catch(error => {
+                console.error('Error playing the video:', error);
+            });
+        }
+
+        overlay.classList.add('opacity-0');
+        overlay.style.pointerEvents = 'none';
+      });
+
+      const onFullScreenChange = () => {
+        const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
+        if (!isFullscreen) {
+          player.pause();
+          overlay.classList.remove('opacity-0');
+          overlay.style.pointerEvents = 'auto';
+        }
+      };
+
+      document.addEventListener('fullscreenchange', onFullScreenChange);
+      document.addEventListener('webkitfullscreenchange', onFullScreenChange);
     </script>
 
   </body>

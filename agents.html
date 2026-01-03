@@ -1,52 +1,149 @@
 
-import React from 'react';
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cees Oddens – AI Agents</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: 'Montserrat', sans-serif;
+      }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
+</head>
+<body class="bg-black text-white min-h-screen">
 
-const imageUrl = 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/Projecten%2Fproject3.webp?alt=media&token=0e830d1e-e00a-46b5-98bd-741459ea7eef';
-
-const FeatureCard: React.FC<{ title: string; description: string; }> = ({ title, description }) => (
-    <div 
-        className="relative p-8 rounded-lg shadow-lg hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden bg-cover bg-center min-h-[250px] flex flex-col justify-end transform hover:scale-105"
-        style={{ backgroundImage: `url(${imageUrl})` }}
-    >
-        <div className="absolute inset-0 bg-black opacity-70"></div>
-        <div className="relative z-10">
-            <h3 className="text-xl font-bold mb-2 text-white">{title}</h3>
-            <p className="text-gray-300">{description}</p>
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 ease-in-out bg-transparent">
+      <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            <a href="index.html" class="text-xl font-bold uppercase tracking-wider">Cees Oddens</a>
+            <ul class="hidden md:flex items-center space-x-8">
+                <li><a href="index.html" class="text-white font-bold uppercase text-sm tracking-wider transition-colors duration-300 hover:text-blue-300">Home</a></li>
+                <li><a href="index.html#about" class="text-white font-bold uppercase text-sm tracking-wider transition-colors duration-300 hover:text-blue-300">About</a></li>
+                <li><a href="index.html#projects" class="text-white font-bold uppercase text-sm tracking-wider transition-colors duration-300 hover:text-blue-300">Projects</a></li>
+                <li><a href="index.html#contact" class="text-white font-bold uppercase text-sm tracking-wider transition-colors duration-300 hover:text-blue-300">Contact</a></li>
+            </ul>
         </div>
-    </div>
-);
+      </nav>
+    </header>
 
+    <main>
+        <!-- Hero Section -->
+        <section 
+          id="hero" 
+          class="relative min-h-screen flex items-center justify-center text-center bg-cover bg-center bg-no-repeat px-4"
+          style="background-image: url('https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/Projecten%2Fproject3.webp?alt=media&token=0e830d1e-e00a-46b5-98bd-741459ea7eef');"
+        >
+          <!-- Overlay -->
+          <div class="absolute inset-0 bg-black opacity-60"></div>
+    
+          <div class="relative z-10 flex flex-col items-center">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-widest text-white drop-shadow-lg">
+              AI Agents
+            </h1>
+            <p class="mt-4 text-lg md:text-xl lg:text-2xl text-gray-200 max-w-2xl drop-shadow-md">
+              De toekomst van autonome systemen en intelligente automatisering.
+            </p>
+            <a 
+              href="#content"
+              class="mt-8 px-8 py-3 bg-blue-600 text-white font-bold uppercase rounded-md tracking-wider hover:bg-blue-500 transition-transform duration-300 hover:scale-105"
+            >
+              Ontdek Meer
+            </a>
+          </div>
+        </section>
 
-const ContentSection: React.FC = () => {
-  return (
-    <section id="content" className="py-20 sm:py-28 bg-black">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wider mb-4">
-            Wat zijn AI Agents?
-          </h2>
-          <p className="text-lg text-gray-300 mb-12">
-            AI Agents zijn geavanceerde software-entiteiten die autonoom doelen kunnen nastreven. Ze nemen waar, redeneren, en handelen in hun omgeving om specifieke taken te voltooien, van eenvoudige dataverzameling tot complexe, meerstaps probleemoplossing.
-          </p>
+        <!-- Content Section -->
+        <section id="content" class="py-20 sm:py-28 bg-black">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold uppercase tracking-wider mb-4">
+                        Wat zijn AI Agents?
+                    </h2>
+                    <p class="text-lg text-gray-300 mb-12">
+                        AI Agents zijn geavanceerde software-entiteiten die autonoom doelen kunnen nastreven. Ze nemen waar, redeneren, en handelen in hun omgeving om specifieke taken te voltooien, van eenvoudige dataverzameling tot complexe, meerstaps probleemoplossing.
+                    </p>
+                </div>
+        
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Feature Card 1 -->
+                    <div class="relative p-8 rounded-lg shadow-lg hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden bg-cover bg-center min-h-[250px] flex flex-col justify-end transform hover:scale-105" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/Projecten%2Fproject3.webp?alt=media&token=0e830d1e-e00a-46b5-98bd-741459ea7eef');">
+                        <div class="absolute inset-0 bg-black opacity-70"></div>
+                        <div class="relative z-10">
+                            <h3 class="text-xl font-bold mb-2 text-white">Autonome Operatie</h3>
+                            <p class="text-gray-300">Agents functioneren zelfstandig zonder constante menselijke supervisie, wat leidt tot efficiëntie en schaalbaarheid.</p>
+                        </div>
+                    </div>
+                    <!-- Feature Card 2 -->
+                    <div class="relative p-8 rounded-lg shadow-lg hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden bg-cover bg-center min-h-[250px] flex flex-col justify-end transform hover:scale-105" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/Projecten%2Fproject3.webp?alt=media&token=0e830d1e-e00a-46b5-98bd-741459ea7eef');">
+                        <div class="absolute inset-0 bg-black opacity-70"></div>
+                        <div class="relative z-10">
+                            <h3 class="text-xl font-bold mb-2 text-white">24/7 Productiviteit</h3>
+                            <p class="text-gray-300">In tegenstelling tot mensen kunnen AI Agents continu werken, waardoor processen nooit stilstaan en de productiviteit wordt gemaximaliseerd.</p>
+                        </div>
+                    </div>
+                    <!-- Feature Card 3 -->
+                    <div class="relative p-8 rounded-lg shadow-lg hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden bg-cover bg-center min-h-[250px] flex flex-col justify-end transform hover:scale-105" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/Projecten%2Fproject3.webp?alt=media&token=0e830d1e-e00a-46b5-98bd-741459ea7eef');">
+                        <div class="absolute inset-0 bg-black opacity-70"></div>
+                        <div class="relative z-10">
+                            <h3 class="text-xl font-bold mb-2 text-white">Data-Gedreven Beslissingen</h3>
+                            <p class="text-gray-300">Ze analyseren enorme hoeveelheden data om weloverwogen, objectieve beslissingen te nemen die de bedrijfsresultaten verbeteren.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-8 px-4">
+      <div class="container mx-auto text-center">
+        <div class="social-icons mb-4">
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-blue-400 text-sm font-bold uppercase tracking-wider mx-4 transition-colors duration-300">
+            LinkedIn
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-pink-400 text-sm font-bold uppercase tracking-wider mx-4 transition-colors duration-300">
+            Instagram
+          </a>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <FeatureCard 
-            title="Autonome Operatie"
-            description="Agents functioneren zelfstandig zonder constante menselijke supervisie, wat leidt tot efficiëntie en schaalbaarheid."
-          />
-          <FeatureCard 
-            title="24/7 Productiviteit"
-            description="In tegenstelling tot mensen kunnen AI Agents continu werken, waardoor processen nooit stilstaan en de productiviteit wordt gemaximaliseerd."
-          />
-          <FeatureCard 
-            title="Data-Gedreven Beslissingen"
-            description="Ze analyseren enorme hoeveelheden data om weloverwogen, objectieve beslissingen te nemen die de bedrijfsresultaten verbeteren."
-          />
-        </div>
+        <p class="text-sm">
+          &copy; <span id="copyright-year">2024</span> Cees Oddens. All rights reserved. | Email: ceesoddens@hotmail.com
+        </p>
       </div>
-    </section>
-  );
-};
+    </footer>
 
-export default ContentSection;
+    <script>
+        // Change header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('bg-black/90', 'backdrop-blur-sm');
+                header.classList.remove('bg-transparent');
+            } else {
+                header.classList.remove('bg-black/90', 'backdrop-blur-sm');
+                header.classList.add('bg-transparent');
+            }
+        });
+
+        // Set current year in footer
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

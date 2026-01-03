@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="nl">
   <head>
@@ -16,6 +15,22 @@
       body {
         font-family: 'Montserrat', sans-serif;
       }
+      /* Zorgt ervoor dat de video-embed de hele container vult */
+      .video-background {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100vw;
+        height: 100vh;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+      @media (min-aspect-ratio: 16/9) {
+        .video-background { height: 56.25vw; }
+      }
+      @media (max-aspect-ratio: 16/9) {
+        .video-background { width: 177.78vh; }
+      }
     </style>
 <script type="importmap">
 {
@@ -29,7 +44,6 @@
 </head>
 <body class="bg-black text-white min-h-screen">
 
-    <!-- Header -->
     <header id="header" class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 ease-in-out bg-transparent">
       <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20">
@@ -45,14 +59,20 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section 
           id="hero" 
-          class="relative min-h-screen flex items-center justify-center text-center bg-cover bg-center bg-no-repeat px-4"
-          style="background-image: url('https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/Projecten%2Fproject3.webp?alt=media&token=0e830d1e-e00a-46b5-98bd-741459ea7eef');"
+          class="relative min-h-screen flex items-center justify-center text-center px-4 overflow-hidden"
         >
-          <!-- Overlay -->
-          <div class="absolute inset-0 bg-black opacity-60"></div>
+          <div class="absolute inset-0 z-0">
+            <iframe 
+                src="https://player.vimeo.com/video/1151192261?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1" 
+                frameborder="0" 
+                allow="autoplay; fullscreen" 
+                class="video-background">
+            </iframe>
+          </div>
+
+          <div class="absolute inset-0 bg-black opacity-60 z-1"></div>
     
           <div class="relative z-10 flex flex-col items-center">
             <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-widest text-white drop-shadow-lg">
@@ -70,8 +90,7 @@
           </div>
         </section>
 
-        <!-- Content Section -->
-        <section id="content" class="py-20 sm:py-28 bg-black">
+        <section id="content" class="py-20 sm:py-28 bg-black relative z-10">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto">
                     <h2 class="text-3xl md:text-4xl font-bold uppercase tracking-wider mb-4">
@@ -83,7 +102,6 @@
                 </div>
         
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Feature Card 1 -->
                     <div class="relative p-8 rounded-lg shadow-lg hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden bg-cover bg-center min-h-[250px] flex flex-col justify-end transform hover:scale-105" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/Projecten%2Fproject4.webp?alt=media&token=4ae51a84-298e-4dd8-9e0f-cba0ed9557c9');">
                         <div class="absolute inset-0 bg-black opacity-70"></div>
                         <div class="relative z-10">
@@ -91,7 +109,6 @@
                             <p class="text-gray-300">Agents functioneren zelfstandig zonder constante menselijke supervisie, wat leidt tot efficiëntie en schaalbaarheid.</p>
                         </div>
                     </div>
-                    <!-- Feature Card 2 -->
                     <div class="relative p-8 rounded-lg shadow-lg hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden bg-cover bg-center min-h-[250px] flex flex-col justify-end transform hover:scale-105" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/Projecten%2Fproject4.webp?alt=media&token=4ae51a84-298e-4dd8-9e0f-cba0ed9557c9');">
                         <div class="absolute inset-0 bg-black opacity-70"></div>
                         <div class="relative z-10">
@@ -99,7 +116,6 @@
                             <p class="text-gray-300">In tegenstelling tot mensen kunnen AI Agents continu werken, waardoor processen nooit stilstaan en de productiviteit wordt gemaximaliseerd.</p>
                         </div>
                     </div>
-                    <!-- Feature Card 3 -->
                     <div class="relative p-8 rounded-lg shadow-lg hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden bg-cover bg-center min-h-[250px] flex flex-col justify-end transform hover:scale-105" style="background-image: url('https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/Projecten%2Fproject4.webp?alt=media&token=4ae51a84-298e-4dd8-9e0f-cba0ed9557c9');">
                         <div class="absolute inset-0 bg-black opacity-70"></div>
                         <div class="relative z-10">
@@ -112,8 +128,7 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-8 px-4">
+    <footer class="bg-gray-900 text-gray-400 py-8 px-4 relative z-10">
       <div class="container mx-auto text-center">
         <div class="social-icons mb-4">
           <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-blue-400 text-sm font-bold uppercase tracking-wider mx-4 transition-colors duration-300">

@@ -1,9 +1,0 @@
-<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
-  <rect width="300" height="300" fill="#555"/>
-  <rect x="30" y="30" width="240" height="60" fill="#888"/>
-  <rect x="30" y="110" width="240" height="20" fill="#777"/>
-  <rect x="30" y="150" width="240" height="20" fill="#777"/>
-  <rect x="30" y="190" width="240" height="20" fill="#777"/>
-  <rect x="30" y="230" width="120" height="40" fill="#999"/>
-  <text x="150" y="270" font-family="Montserrat, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="white">Editorial Design</text>
-</svg>

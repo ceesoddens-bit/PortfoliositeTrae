@@ -1,247 +1,52 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI AGENTEN — DE NIEUWE GRENS</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a0a0a;
-            color: #ffffff;
-            cursor: crosshair;
-            overflow-x: hidden;
-        }
 
-        .border-fine {
-            border: 0.5px solid rgba(255, 255, 255, 0.1);
-        }
+import React from 'react';
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
-        }
+const imageUrl = 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/Projecten%2Fproject3.webp?alt=media&token=0e830d1e-e00a-46b5-98bd-741459ea7eef';
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .line-draw {
-            width: 0;
-            transition: width 1.5s cubic-bezier(0.2, 1, 0.3, 1);
-        }
-
-        .line-draw.active {
-            width: 100%;
-        }
-
-        .hover-invert:hover {
-            background-color: white;
-            color: black;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-        }
-
-        .grid-bg {
-            background-size: 40px 40px;
-            background-image: radial-gradient(circle, #333 1px, transparent 1px);
-        }
-
-        /* Video Container Styling */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Maakt interactie met tekst/knoppen eronder mogelijk */
-        }
-    </style>
-</head>
-<body class="grid-bg">
-
-    <!-- NAVIGATIE -->
-    <nav class="fixed top-0 w-full z-50 mix-blend-difference border-b border-fine bg-black/50 backdrop-blur-md">
-        <div class="flex justify-between items-center px-6 py-4 md:px-12">
-            <div class="text-xl font-black tracking-tighter">AI:AGENT</div>
-            <div class="hidden md:flex gap-12 text-xs uppercase tracking-widest font-bold">
-                <a href="#definition" class="hover:opacity-50 transition-opacity">Definitie</a>
-                <a href="#taxonomy" class="hover:opacity-50 transition-opacity">Taxonomie</a>
-                <a href="#loop" class="hover:opacity-50 transition-opacity">De Loop</a>
-                <a href="#contact" class="hover:opacity-50 transition-opacity">Contact</a>
-            </div>
-            <div class="text-xs font-mono">01 // 2024</div>
+const FeatureCard: React.FC<{ title: string; description: string; }> = ({ title, description }) => (
+    <div 
+        className="relative p-8 rounded-lg shadow-lg hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden bg-cover bg-center min-h-[250px] flex flex-col justify-end transform hover:scale-105"
+        style={{ backgroundImage: `url(${imageUrl})` }}
+    >
+        <div className="absolute inset-0 bg-black opacity-70"></div>
+        <div className="relative z-10">
+            <h3 className="text-xl font-bold mb-2 text-white">{title}</h3>
+            <p className="text-gray-300">{description}</p>
         </div>
-    </nav>
+    </div>
+);
 
-    <!-- HERO SECTIE -->
-    <section class="min-h-screen flex flex-col justify-start px-6 md:px-12 pt-32 pb-24">
-        <div class="max-w-6xl w-full mx-auto">
-            <!-- Koptekst -->
-            <h1 class="text-[12vw] md:text-[10vw] leading-[0.9] font-black tracking-tighter uppercase mb-8 reveal">
-                Autonome <br> Intelligentie
-            </h1>
-            
-            <div class="h-[1px] bg-white line-draw mb-8"></div>
-            
-            <!-- Beschrijving en Knop -->
-            <div class="flex flex-col md:flex-row justify-between items-start gap-8 mb-16">
-                <p class="max-w-xl text-lg md:text-2xl font-light leading-relaxed reveal" style="transition-delay: 0.2s;">
-                    Verder dan statische chatbots. AI-agenten zijn entiteiten die omgevingen kunnen waarnemen, door complexe doelen kunnen redeneren en autonoom acties kunnen uitvoeren om specifieke resultaten te bereiken.
-                </p>
-                <div class="text-xs uppercase tracking-[0.3em] font-bold border border-white px-6 py-4 hover-invert transition-all duration-300 reveal" style="transition-delay: 0.4s;">
-                    Ontdek het Ecosysteem
-                </div>
-            </div>
 
-            <!-- Grote Hero Video -->
-            <div class="w-full border-fine overflow-hidden reveal" style="transition-delay: 0.6s;">
-                <div class="video-container">
-                    <iframe 
-                        src="https://player.vimeo.com/video/1151192261?autoplay=1&loop=1&muted=1&background=1&badge=0&autopause=0&player_id=0&app_id=58479" 
-                        frameborder="0" 
-                        allow="autoplay; fullscreen; picture-in-picture" 
-                        title="AI Hero Video">
-                    </iframe>
-                </div>
-            </div>
+const ContentSection: React.FC = () => {
+  return (
+    <section id="content" className="py-20 sm:py-28 bg-black">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-wider mb-4">
+            Wat zijn AI Agents?
+          </h2>
+          <p className="text-lg text-gray-300 mb-12">
+            AI Agents zijn geavanceerde software-entiteiten die autonoom doelen kunnen nastreven. Ze nemen waar, redeneren, en handelen in hun omgeving om specifieke taken te voltooien, van eenvoudige dataverzameling tot complexe, meerstaps probleemoplossing.
+          </p>
         </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <FeatureCard 
+            title="Autonome Operatie"
+            description="Agents functioneren zelfstandig zonder constante menselijke supervisie, wat leidt tot efficiëntie en schaalbaarheid."
+          />
+          <FeatureCard 
+            title="24/7 Productiviteit"
+            description="In tegenstelling tot mensen kunnen AI Agents continu werken, waardoor processen nooit stilstaan en de productiviteit wordt gemaximaliseerd."
+          />
+          <FeatureCard 
+            title="Data-Gedreven Beslissingen"
+            description="Ze analyseren enorme hoeveelheden data om weloverwogen, objectieve beslissingen te nemen die de bedrijfsresultaten verbeteren."
+          />
+        </div>
+      </div>
     </section>
+  );
+};
 
-    <!-- DE DEFINITIE GRID -->
-    <section id="definition" class="border-t border-fine py-24 px-6 md:px-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-fine">
-            <div class="p-12 border-fine border-t-0 border-l-0 reveal">
-                <span class="text-xs font-mono mb-4 block opacity-40">01 / PERCEPTIE</span>
-                <h3 class="text-3xl font-bold mb-6">De Wereld Waarnemen</h3>
-                <p class="opacity-70 text-sm leading-loose">Agenten verwerken data uit diverse bronnen—API's, visuele sensoren of tekst—om een representatie op te bouwen van hun huidige omgeving.</p>
-            </div>
-            <div class="p-12 border-fine border-t-0 border-l-0 reveal" style="transition-delay: 0.1s;">
-                <span class="text-xs font-mono mb-4 block opacity-40">02 / REDENEREN</span>
-                <h3 class="text-3xl font-bold mb-6">Cognitieve Berekening</h3>
-                <p class="opacity-70 text-sm leading-loose">Met LLM's als "brein" plannen agenten sequenties, beheren ze uitzonderingen en reflecteren ze op hun eigen logica om in real-time bij te sturen.</p>
-            </div>
-            <div class="p-12 border-fine border-t-0 border-l-0 border-r-0 reveal" style="transition-delay: 0.2s;">
-                <span class="text-xs font-mono mb-4 block opacity-40">03 / ACTIE</span>
-                <h3 class="text-3xl font-bold mb-6">Gebruik van Tools</h3>
-                <p class="opacity-70 text-sm leading-loose">De laatste fase. Agenten voeren code uit, roepen externe diensten aan of besturen hardware om veranderingen in de digitale of fysieke wereld te realiseren.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- DE LOOP VISUALIZER -->
-    <section id="loop" class="py-24 px-6 md:px-12 overflow-hidden">
-        <div class="flex flex-col md:flex-row items-center gap-12">
-            <div class="w-full md:w-1/2">
-                <h2 class="text-5xl md:text-7xl font-black uppercase mb-12 tracking-tighter reveal">De Feedback <br> Loop</h2>
-                <div class="space-y-8 reveal" style="transition-delay: 0.2s;">
-                    <div class="group border-b border-fine pb-6 hover:pl-4 transition-all duration-300">
-                        <h4 class="text-xl font-bold mb-2 group-hover:text-blue-400">Geheugenbeheer</h4>
-                        <p class="text-sm opacity-50">Kortetermijn context-vensters versus langetermijn vector databases.</p>
-                    </div>
-                    <div class="group border-b border-fine pb-6 hover:pl-4 transition-all duration-300">
-                        <h4 class="text-xl font-bold mb-2 group-hover:text-blue-400">Zelfreflectie</h4>
-                        <p class="text-sm opacity-50">Agenten die hun eigen output bekritiseren om hallucinaties te minimaliseren.</p>
-                    </div>
-                    <div class="group border-b border-fine pb-6 hover:pl-4 transition-all duration-300">
-                        <h4 class="text-xl font-bold mb-2 group-hover:text-blue-400">Multi-Agent Zwermen</h4>
-                        <p class="text-sm opacity-50">Gespecialiseerde agenten die samenwerken om complexe bedrijfsvraagstukken op te lossen.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full md:w-1/2 relative aspect-square border-fine flex items-center justify-center overflow-hidden reveal" style="transition-delay: 0.4s;">
-                <div class="absolute inset-0 bg-white/5 animate-pulse"></div>
-                <div class="relative z-10 text-center">
-                    <svg width="200" height="200" viewBox="0 0 100 100" class="mx-auto animate-spin" style="animation-duration: 10s;">
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="0.5" stroke-dasharray="10 5" />
-                        <circle cx="50" cy="50" r="30" fill="none" stroke="white" stroke-width="0.5" />
-                        <path d="M50 5 L55 15 L45 15 Z" fill="white" transform="rotate(0 50 50)" />
-                        <path d="M50 5 L55 15 L45 15 Z" fill="white" transform="rotate(120 50 50)" />
-                        <path d="M50 5 L55 15 L45 15 Z" fill="white" transform="rotate(240 50 50)" />
-                    </svg>
-                    <p class="mt-8 text-xs font-mono tracking-widest opacity-50 uppercase">Continue Optimalisatie</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- QUOTE SECTIE -->
-    <section class="py-48 px-6 md:px-12 bg-white text-black text-center">
-        <h2 class="text-4xl md:text-8xl font-black uppercase tracking-tighter leading-none reveal">
-            "Het eerste tijdperk was Chat. <br> Het volgende is Agency."
-        </h2>
-    </section>
-
-    <!-- FOOTER -->
-    <footer id="contact" class="bg-black py-24 px-6 md:px-12 border-t border-fine">
-        <div class="flex flex-col md:flex-row justify-between items-end gap-12">
-            <div>
-                <div class="text-6xl font-black mb-8">AI:AGENT</div>
-                <p class="max-w-sm text-sm opacity-50 mb-12">Een gecureerde blik op de architecturale verschuiving van passieve modellen naar actieve assistenten. Gebouwd voor de toekomst.</p>
-                <div class="flex gap-8 text-xs font-bold uppercase">
-                    <a href="#" class="hover:underline">Github</a>
-                    <a href="#" class="hover:underline">Documentatie</a>
-                    <a href="#" class="hover:underline">Labs</a>
-                </div>
-            </div>
-            <div class="text-right">
-                <div class="text-xs font-mono mb-4 opacity-40">BLIJF OP DE HOOGTE</div>
-                <div class="text-2xl md:text-4xl font-light hover:italic cursor-pointer transition-all underline decoration-1 underline-offset-8">hello@ai-agent.systems</div>
-            </div>
-        </div>
-        <div class="mt-24 pt-8 border-t border-fine flex justify-between items-center text-[10px] font-mono opacity-30">
-            <div>© 2024 AGENT ARCHIEF</div>
-            <div>SCROLL NAAR BOVEN [↑]</div>
-        </div>
-    </footer>
-
-    <script>
-        const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal, .line-draw').forEach(el => observer.observe(el));
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX / window.innerWidth - 0.5) * 10;
-            const moveY = (e.clientY / window.innerHeight - 0.5) * 10;
-            document.body.style.backgroundPosition = `${moveX}px ${moveY}px`;
-        });
-    </script>
-</body>
-</html>
+export default ContentSection;

@@ -123,9 +123,9 @@
     <nav id="nav">
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="index.html">Over</a></li>
-            <li><a href="index.html">Specialisaties</a></li>
-            <li><a href="index.html">Contact</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
         </ul>
     </nav>
     <section id="hero">
@@ -138,14 +138,16 @@
     <footer>
         <p>&copy; 2025 Cees Oddens. | ceesoddens@hotmail.com</p>
     </footer>
-   
+    
     <!-- React Logic -->
     <script type="text/babel">
       const { useState, useEffect, useRef } = React;
+
       const DrawingCard = ({ drawing, isSelected, onSelect }) => {
         const [translate, setTranslate] = useState({ x: 0, y: 0 });
         const [isDragging, setIsDragging] = useState(false);
         const dragStartRef = useRef({ x: 0, y: 0 });
+
         const handleStart = (clientX, clientY) => {
           onSelect(drawing.id);
           setIsDragging(true);
@@ -154,6 +156,7 @@
             y: clientY - translate.y,
           };
         };
+
         const handleMove = (clientX, clientY) => {
           if (!isDragging) return;
           setTranslate({
@@ -161,18 +164,22 @@
             y: clientY - dragStartRef.current.y,
           });
         };
+
         const handleEnd = () => setIsDragging(false);
+
         // Mouse Events
         const onMouseDown = (e) => {
             e.stopPropagation();
             handleStart(e.clientX, e.clientY);
         };
+
         // Touch Events voor mobiel
         const onTouchStart = (e) => {
             e.stopPropagation();
             const touch = e.touches[0];
             handleStart(touch.clientX, touch.clientY);
         };
+
         useEffect(() => {
           const moveListener = (e) => {
             const x = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
@@ -180,6 +187,7 @@
             handleMove(x, y);
           };
           const upListener = () => handleEnd();
+
           if (isDragging) {
             window.addEventListener('mousemove', moveListener);
             window.addEventListener('mouseup', upListener);
@@ -193,6 +201,7 @@
             window.removeEventListener('touchend', upListener);
           };
         }, [isDragging]);
+
         return (
           <div
             className={`absolute p-1 bg-white shadow-2xl transition-transform duration-300 ease-out select-none outline-none
@@ -202,7 +211,7 @@
               top: `${drawing.initialPosition.top}%`,
               left: `${drawing.initialPosition.left}%`,
               zIndex: isSelected ? 1000 : drawing.zIndex,
-              transform: `translate(${translate.x}px, ${translate.y}px) rotate(${drawing.rotation}deg) scale(${isSelected ? 1.5 : 1})`, // Aangepast: minder zoom (van 2.2 naar 1.5)
+              transform: `translate(${translate.x}px, ${translate.y}px) rotate(${drawing.rotation}deg) scale(${isSelected ? 2.2 : 1})`,
               transformOrigin: 'center center',
               touchAction: 'none'
             }}
@@ -218,28 +227,31 @@
           </div>
         );
       };
+
       const App = () => {
         // Gebruik percentages voor betere responsiviteit op mobiel
         const initialDrawings = [
-          // Pile of 9 images (Originals + Duplicates) - looser pile
-          { id: 1, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_Cruijff_Plaatje01.webp?alt=media&token=e3b06d4e-451f-48af-9edc-a383ae52568a', alt: 'Cruijff', initialPosition: { top: 10, left: 10 }, rotation: -5, zIndex: 1, width: 38 },
-          { id: 2, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_VanHanegem_Plaatje02.webp?alt=media&token=717aff09-bde3-43e3-8ec7-ac1270fa05f6', alt: 'Van Hanegem', initialPosition: { top: 12, left: 35 }, rotation: 4, zIndex: 2, width: 38 },
-          { id: 3, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_ronaldo_Plaatje02.webp?alt=media&token=24b2f9d9-2798-42a3-9415-c74bf5c99d2f', alt: 'Ronaldo', initialPosition: { top: 30, left: 20 }, rotation: -3, zIndex: 3, width: 38 },
-         
-          { id: 4, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FStoryBoardInstVid_001%20kopie.webp?alt=media&token=eb7b3572-af12-41ee-ba0f-3ed04502bdbd', alt: 'Action', initialPosition: { top: 50, left: 15 }, rotation: 2, zIndex: 4, width: 25 },
-          { id: 5, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FStoryBoardInstVid_002%20kopie.webp?alt=media&token=5bcba1fd-67ac-4290-8406-fc26e0d2e91c', alt: 'Vehicle', initialPosition: { top: 60, left: 45 }, rotation: -6, zIndex: 5, width: 22 },
-          // Duplicates Set 1
-          { id: 6, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FStoryboard_pakken_01.webp?alt=media&token=9a446630-617b-4890-aad6-0df013b3ba62', alt: 'Cruijff', initialPosition: { top: 25, left: 5 }, rotation: 8, zIndex: 6, width: 38},
-          { id: 7, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FStoryboard_totaalAuto_01.webp?alt=media&token=f32f73f8-1979-4cd8-9b37-800a5965107b', initialPosition: { top: 8, left: 40 }, rotation: -6, zIndex: 7, width: 38 },
-          { id: 8, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_ronaldo_Plaatje02.webp?alt=media&token=24b2f9d9-2798-42a3-9415-c74bf5c99d2f', alt: 'Ronaldo', initialPosition: { top: 35, left: 45 }, rotation: 2, zIndex: 8, width: 38 },
-         
-          // Duplicates Set 2
-          { id: 9, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_Cruijff_Plaatje01.webp?alt=media&token=e3b06d4e-451f-48af-9edc-a383ae52568a', alt: 'Cruijff', initialPosition: { top: 15, left: 25 }, rotation: -10, zIndex: 9, width: 38 },
-          { id: 10, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_VanHanegem_Plaatje02.webp?alt=media&token=717aff09-bde3-43e3-8ec7-ac1270fa05f6', alt: 'Van Hanegem', initialPosition: { top: 38, left: 15 }, rotation: 5, zIndex: 10, width: 38 },
-          { id: 11, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FStoryboard_totaalAuto_01.webp?alt=media&token=f32f73f8-1979-4cd8-9b37-800a5965107b', alt: 'Ronaldo', initialPosition: { top: 20, left: 42 }, rotation: -2, zIndex: 11, width: 38 },
+          // Row 1
+          { id: 1, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_Cruijff_Plaatje01.webp?alt=media&token=e3b06d4e-451f-48af-9edc-a383ae52568a', alt: 'Cruijff', initialPosition: { top: 5, left: -5 }, rotation: -3, zIndex: 1, width: 35 },
+          { id: 2, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_VanHanegem_Plaatje02.webp?alt=media&token=717aff09-bde3-43e3-8ec7-ac1270fa05f6', alt: 'Van Hanegem', initialPosition: { top: 2, left: 25 }, rotation: 2, zIndex: 2, width: 35 },
+          { id: 3, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_ronaldo_Plaatje02.webp?alt=media&token=24b2f9d9-2798-42a3-9415-c74bf5c99d2f', alt: 'Ronaldo', initialPosition: { top: 6, left: 55 }, rotation: -2, zIndex: 3, width: 35 },
+          { id: 4, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FStoryBoardInstVid_001%20kopie.webp?alt=media&token=eb7b3572-af12-41ee-ba0f-3ed04502bdbd', alt: 'Action', initialPosition: { top: 0, left: 80 }, rotation: 4, zIndex: 4, width: 30 },
+
+          // Row 2
+          { id: 5, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FStoryBoardInstVid_002%20kopie.webp?alt=media&token=5bcba1fd-67ac-4290-8406-fc26e0d2e91c', alt: 'Vehicle', initialPosition: { top: 35, left: 0 }, rotation: 3, zIndex: 5, width: 35 },
+          { id: 6, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_Cruijff_Plaatje01.webp?alt=media&token=e3b06d4e-451f-48af-9edc-a383ae52568a', alt: 'Cruijff', initialPosition: { top: 30, left: 30 }, rotation: -4, zIndex: 6, width: 35 },
+          { id: 7, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_VanHanegem_Plaatje02.webp?alt=media&token=717aff09-bde3-43e3-8ec7-ac1270fa05f6', alt: 'Van Hanegem', initialPosition: { top: 38, left: 60 }, rotation: 1, zIndex: 7, width: 35 },
+          { id: 8, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_ronaldo_Plaatje02.webp?alt=media&token=24b2f9d9-2798-42a3-9415-c74bf5c99d2f', alt: 'Ronaldo', initialPosition: { top: 32, left: 85 }, rotation: -2, zIndex: 8, width: 30 },
+
+          // Row 3
+          { id: 9, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_Cruijff_Plaatje01.webp?alt=media&token=e3b06d4e-451f-48af-9edc-a383ae52568a', alt: 'Cruijff', initialPosition: { top: 65, left: 5 }, rotation: -5, zIndex: 9, width: 35 },
+          { id: 10, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_VanHanegem_Plaatje02.webp?alt=media&token=717aff09-bde3-43e3-8ec7-ac1270fa05f6', alt: 'Van Hanegem', initialPosition: { top: 60, left: 35 }, rotation: 3, zIndex: 10, width: 35 },
+          { id: 11, src: 'https://firebasestorage.googleapis.com/v0/b/eigenwebsite-20b2e.firebasestorage.app/o/StoryBoard%2FSB_ronaldo_Plaatje02.webp?alt=media&token=24b2f9d9-2798-42a3-9415-c74bf5c99d2f', alt: 'Ronaldo', initialPosition: { top: 68, left: 65 }, rotation: -3, zIndex: 11, width: 35 },
         ];
+
         const [drawings, setDrawings] = useState(initialDrawings);
         const [selectedId, setSelectedId] = useState(null);
+
         const handleSelectDrawing = (id) => {
           setSelectedId(id);
           setDrawings(prevDrawings => {
@@ -252,7 +264,9 @@
             });
           });
         };
+
         const handleDeselect = () => setSelectedId(null);
+
         return (
           <main className="relative w-full h-full" onClick={handleDeselect}>
             {drawings.map(drawing => (
@@ -266,6 +280,7 @@
           </main>
         );
       };
+
       const root = ReactDOM.createRoot(document.getElementById('root'));
       root.render(<App />);
     </script>

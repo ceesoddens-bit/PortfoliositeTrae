@@ -155,6 +155,7 @@
     <div id="arc-booking-widget-container"></div>
     <script>
       (function() {
+        console.log("ARC Widget: Script initialized.");
         var WIDGET_URL = "http://localhost:3000/widget/IVTBpFtSaHL7jragotiu";
         var isOpen = false;
         var DESKTOP = window.innerWidth >= 768;
@@ -185,10 +186,10 @@
         desktopWrap.style.cssText = "position:fixed;bottom:82px;right:24px;z-index:9999999;transform-origin:bottom right;transform:scale(0);opacity:0;transition:transform 0.38s cubic-bezier(0.34,1.4,0.64,1),opacity 0.25s ease;pointer-events:none;";
 
         var desktopIframe = document.createElement('iframe');
-        // src wordt één keer gezet en daarna nooit meer aangepast — tab-wisseling
-        // gaat via postMessage zodat de iframe niet herlaadt.
         desktopIframe.src = WIDGET_URL;
         desktopIframe.style.cssText = "width:420px;min-height:400px;max-height:calc(100vh - 110px);border:none;border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,0.25);display:block;";
+        desktopIframe.onload = function() { console.log("ARC Widget: Desktop iframe loaded successfully."); };
+        desktopIframe.onerror = function(e) { console.error("ARC Widget: Desktop iframe load error:", e); };
 
         desktopWrap.appendChild(desktopIframe);
 
@@ -206,6 +207,8 @@
         var mobileIframe = document.createElement('iframe');
         mobileIframe.src = WIDGET_URL;
         mobileIframe.style.cssText = "width:100%;min-height:400px;border:none;display:block;";
+        mobileIframe.onload = function() { console.log("ARC Widget: Mobile iframe loaded successfully."); };
+        mobileIframe.onerror = function(e) { console.error("ARC Widget: Mobile iframe load error:", e); };
 
         // Injected styles to force fullscreen on mobile
         var style = document.createElement('style');
@@ -240,8 +243,19 @@
         var eventsIframe = document.createElement('iframe');
         eventsIframe.style.cssText = "width:100%;height:85vh;border:none;";
 
-        function openEventsWidget() { eventsIframe.src = EVENTS_URL; eventsOverlay.style.display = 'flex'; document.body.style.overflow = 'hidden'; close(); }
-        function closeEventsWidget() { eventsOverlay.style.display = 'none'; eventsIframe.src = ''; document.body.style.overflow = ''; }
+        function openEventsWidget() { 
+          console.log("ARC Widget: Opening events widget...");
+          eventsIframe.src = EVENTS_URL; 
+          eventsOverlay.style.display = 'flex'; 
+          document.body.style.overflow = 'hidden'; 
+          close(); 
+        }
+        function closeEventsWidget() { 
+          console.log("ARC Widget: Closing events widget...");
+          eventsOverlay.style.display = 'none'; 
+          eventsIframe.src = ''; 
+          document.body.style.overflow = ''; 
+        }
 
         eventsCloseBtn.onclick = closeEventsWidget;
         eventsOverlay.onclick  = function(e) { if (e.target === eventsOverlay) closeEventsWidget(); };
@@ -256,18 +270,27 @@
         var iframeHeight = 400;
         window.addEventListener('message', function(e) {
           if (!e.data) return;
+          console.log("ARC Widget: Received postMessage:", e.data.type, e.data);
           if (e.data.type === 'arc-widget-resize') {
             if (e.source !== desktopIframe.contentWindow && e.source !== mobileIframe.contentWindow) return;
             iframeHeight = Math.max(e.data.height, 400);
             desktopIframe.style.height = iframeHeight + 'px';
             mobileIframe.style.height = iframeHeight + 'px';
+            console.log("ARC Widget: Resized iframe to", iframeHeight + "px");
           }
           if (e.data.type === 'arc-widget-colors') {
             if (e.source !== desktopIframe.contentWindow && e.source !== mobileIframe.contentWindow) return;
-            if (e.data.primaryColor) giftBtn.style.background = e.data.primaryColor;
-            if (e.data.headerColor) btn.style.background = e.data.headerColor;
+            if (e.data.primaryColor) {
+              giftBtn.style.background = e.data.primaryColor;
+              console.log("ARC Widget: Updated primary color to", e.data.primaryColor);
+            }
+            if (e.data.headerColor) {
+              btn.style.background = e.data.headerColor;
+              console.log("ARC Widget: Updated header color to", e.data.headerColor);
+            }
           }
           if (e.data.type === 'arc-widget-close') {
+            console.log("ARC Widget: Close message received from iframe.");
             close();
           }
           if (e.data.type === 'arc-widget-open-events') {
@@ -279,6 +302,7 @@
 
         // ── Tab-wisseling via postMessage — voorkomt iframe herladen ──────────
         function setTab(tab) {
+          console.log("ARC Widget: Setting tab to", tab, "currentTab:", currentTab);
           if (currentTab === tab) return;
           currentTab = tab;
           var msg = { type: 'arc-widget-tab', tab: tab };
@@ -298,16 +322,20 @@
         function open() {
           isOpen = true;
           DESKTOP = window.innerWidth >= 768;
+          console.log("ARC Widget: Opening widget. DESKTOP mode:", DESKTOP, "Width:", window.innerWidth);
           if (DESKTOP) {
             desktopWrap.style.transform = 'scale(1)';
             desktopWrap.style.opacity   = '1';
             desktopWrap.style.pointerEvents = 'auto';
+            console.log("ARC Widget: Desktop wrap styling set to scale(1) opacity(1).");
           } else {
             overlay.style.display = 'flex';
             document.body.style.overflow = 'hidden';
+            console.log("ARC Widget: Mobile overlay display set to flex.");
           }
         }
         function close() {
+          console.log("ARC Widget: Closing widget.");
           isOpen = false;
           desktopWrap.style.transform = 'scale(0)';
           desktopWrap.style.opacity   = '0';
@@ -316,15 +344,27 @@
           document.body.style.overflow = '';
         }
 
-        btn.onclick          = function() { setTab('reserveren'); isOpen ? close() : open(); };
-        giftBtn.onclick      = function() { if (isOpen && currentTab === 'cadeaubon') { close(); } else { setTab('cadeaubon'); open(); } };
+        btn.onclick          = function() { 
+          console.log("ARC Widget: Reserveren clicked.");
+          setTab('reserveren'); 
+          isOpen ? close() : open(); 
+        };
+        giftBtn.onclick      = function() { 
+          console.log("ARC Widget: Cadeaubon clicked.");
+          if (isOpen && currentTab === 'cadeaubon') { 
+            close(); 
+          } else { 
+            setTab('cadeaubon'); 
+            open(); 
+          } 
+        };
         mobileClose.onclick  = close;
         overlay.onclick      = function(e) { if (e.target === overlay) close(); };
 
         document.body.appendChild(desktopWrap);
         document.body.appendChild(overlay);
         document.body.appendChild(btnWrap);
-
+        console.log("ARC Widget: Elements appended to body successfully.");
       })();
     </script>
 

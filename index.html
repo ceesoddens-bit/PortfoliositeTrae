@@ -151,12 +151,11 @@
         </div>
     </footer>
 
-
     <!-- ARC Booking Widget Button -->
     <div id="arc-booking-widget-container"></div>
     <script>
       (function() {
-        var WIDGET_URL = "https://arc-booking.vercel.app/widget/IVTBpFtSaHL7jragotiu";
+        var WIDGET_URL = "http://localhost:3000/widget/IVTBpFtSaHL7jragotiu";
         var isOpen = false;
         var isExpanded = false;
         var DESKTOP = window.innerWidth >= 768;
@@ -186,22 +185,21 @@
           "    bottom:90px;right:24px;" +
           "    width:420px;height:400px;" +
           "    transform-origin:bottom right;transform:translateY(16px);" +
-          "    transition:transform 0.28s cubic-bezier(0.22,1,0.36,1),opacity 0.2s ease,width 0.26s cubic-bezier(0.4,0,0.2,1);" +
+          "    transition:transform 0.28s cubic-bezier(0.22,1,0.36,1),opacity 0.2s ease,width 0.26s cubic-bezier(0.4,0,0.2,1),height 0.42s cubic-bezier(0.4,0,0.2,1);" +
           "  }" +
           "  .arc-widget-wrap.open {" +
           "    opacity:1;transform:translateY(0);pointer-events:auto;" +
           "  }" +
           "  .arc-widget-wrap.expanded {" +
           "    width:960px;max-width:95vw;height:860px;max-height:90vh;" +
-          "    transition:transform 0.28s cubic-bezier(0.22,1,0.36,1),opacity 0.2s ease,width 0.26s cubic-bezier(0.4,0,0.2,1),height 0.42s cubic-bezier(0.4,0,0.2,1);" +
           "  }" +
           "}" +
           "@media (max-width: 767px) {" +
           "  .arc-widget-wrap {" +
           "    bottom:90px;right:16px;" +
           "    width:calc(100vw - 32px);max-width:400px;height:400px;" +
-          "    transform-origin:bottom right;transform:translateY(16px) scale(0);" +
-          "    transition:transform 0.38s cubic-bezier(0.34,1.4,0.64,1),opacity 0.25s ease,width 0.26s cubic-bezier(0.4,0,0.2,1);" +
+          "    transform-origin:bottom right;transform:translateY(16px scale(0);" +
+          "    transition:transform 0.38s cubic-bezier(0.34,1.4,0.64,1),opacity 0.25s ease,width 0.26s cubic-bezier(0.4,0,0.2,1),height 0.42s cubic-bezier(0.4,0,0.2,1);" +
           "    max-height:calc(100vh - 120px);max-height:calc(100dvh - 120px);" +
           "  }" +
           "  .arc-widget-wrap.open {" +
@@ -291,15 +289,15 @@
           wrap.classList.add('expanded');
           backdrop.classList.add('visible');
           if (DESKTOP) {
-            wrap.style.width = '';
-            wrap.style.height = '';
+            wrap.style.width = '960px';
+            wrap.style.height = '860px';
           }
         }
 
         // Terug naar standaard selectie-scherm grootte
         function shrinkWidget() {
-          if (!isExpanded) return;
           isExpanded = false;
+          isWidgetAnimating = false; // Reset animation lock
           wrap.classList.remove('expanded');
           if (DESKTOP) {
             backdrop.classList.remove('visible');
@@ -336,17 +334,18 @@
           if (e.data.type === 'arc-widget-resize') {
             if (e.source !== iframe.contentWindow) return;
             var limit = DESKTOP ? 110 : 40;
-            iframeHeight = Math.min(Math.max(e.data.height, 400), getViewportHeight() - limit);
+            iframeHeight = Math.min(Math.max(e.data.height, 300), getViewportHeight() - limit);
             rafTargetHeight = iframeHeight;
             if (!isWidgetAnimating && (!isExpanded || !DESKTOP)) {
-              wrap.style.height = iframeHeight + 'px';
+              if (!isOpen) {
+                wrap.style.transition = 'none';
+                wrap.style.height = iframeHeight + 'px';
+                requestAnimationFrame(function() { wrap.style.transition = ''; });
+              } else {
+                wrap.style.height = iframeHeight + 'px';
+              }
             }
-            if (!firstMsgReceived) {
-              firstMsgReceived = true;
-              setTimeout(function() {
-                iframe.style.transition = '';
-              }, 50);
-            }
+            firstMsgReceived = true;
           }
           if (e.data.type === 'arc-widget-colors') {
             if (e.source !== iframe.contentWindow) return;
@@ -370,15 +369,19 @@
           if (e.data.type === 'arc-widget-view') {
             if (e.source !== iframe.contentWindow) return;
             var v = e.data.view;
-            if (v === 'contact' || v === 'payment' || v === 'confirmation') {
+            if (v === 'contact' || v === 'payment') {
               expandWidget();
-            } else if (v === 'selection') {
+            } else if (v === 'selection' || v === 'confirmation') {
               shrinkWidget();
             }
           }
           if (e.data.type === 'arc-widget-close') {
             if (e.source !== iframe.contentWindow) return;
             close();
+          }
+          if (e.data.type === 'arc-widget-shrink') {
+            if (e.source !== iframe.contentWindow) return;
+            shrinkWidget();
           }
           if (e.source === iframe.contentWindow) {
             if (e.data.type === 'arc-widget-open-events') {

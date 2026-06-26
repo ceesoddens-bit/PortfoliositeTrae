@@ -157,61 +157,6 @@
             }
         });
     </script>
-    <!-- ARC Evenementen Widget -->
-    <div id="arc-events-widget-container"></div>
-    <script>
-      (function() {
-        var EVENTS_URL = "https://arc-booking.vercel.app/widget/IVTBpFtSaHL7jragotiu/events";
 
-        // ── Knop ─────────────────────────────────────────────────────────────────
-        var btn = document.createElement('button');
-        btn.innerText = "Evenement of zaal boeken";
-        btn.style.cssText = "position:fixed;bottom:24px;right:24px;z-index:999999;display:inline-block;padding:14px 28px;border:none;border-radius:50px;background:#A59354;color:#fff;font-weight:600;font-size:14px;box-shadow:0 4px 15px rgba(0,0,0,0.15);cursor:pointer;font-family:sans-serif;transition:transform 0.2s;";
-        btn.onmouseover = function() { btn.style.transform = 'scale(1.04)'; };
-        btn.onmouseout  = function() { btn.style.transform = 'scale(1)'; };
-
-        // ── Modal overlay ────────────────────────────────────────────────────────
-        var overlay = document.createElement('div');
-        overlay.style.cssText = "display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:99999999;align-items:flex-start;justify-content:center;padding:20px 16px;overflow-y:auto;";
-
-        var modal = document.createElement('div');
-        modal.style.cssText = "background:#fff;border-radius:18px;width:100%;max-width:1100px;box-shadow:0 24px 64px rgba(0,0,0,0.25);overflow:hidden;display:flex;flex-direction:column;";
-
-        var header = document.createElement('div');
-        header.style.cssText = "display:flex;justify-content:flex-end;padding:12px 16px;border-bottom:1px solid #f1f5f9;flex-shrink:0;";
-
-        var closeBtn = document.createElement('button');
-        closeBtn.innerHTML = "&#x2715;";
-        closeBtn.style.cssText = "width:36px;height:36px;border-radius:50%;border:1px solid #e2e8f0;background:#f8fafc;cursor:pointer;font-size:18px;color:#374151;display:flex;align-items:center;justify-content:center;";
-
-        var iframe = document.createElement('iframe');
-        iframe.style.cssText = "width:100%;height:400px;border:none;";
-
-        // ── Open / sluiten ────────────────────────────────────────────────────────
-        function getViewportHeight() { return window.visualViewport ? window.visualViewport.height : window.innerHeight; }
-        function open() {
-          iframe.src = EVENTS_URL;
-          iframe.style.height = (getViewportHeight() - 40) + 'px';
-          overlay.style.display = 'flex';
-        }
-        function close() {
-          overlay.style.display = 'none';
-          iframe.src = '';
-        }
-
-        closeBtn.onclick = close;
-        overlay.onclick  = function(e) { if (e.target === overlay) close(); };
-        btn.onclick      = open;
-
-        header.appendChild(closeBtn);
-        modal.appendChild(header);
-        modal.appendChild(iframe);
-        overlay.appendChild(modal);
-
-        var container = document.getElementById('arc-events-widget-container');
-        if (container) container.appendChild(btn);
-        document.body.appendChild(overlay);
-      })();
-    </script>
   </body>
 </html>
